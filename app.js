@@ -30,6 +30,8 @@ for (let i = 0; i < questions.length; i++){
     for (let k = 0; k < result.length; k++){
         console.log(k+1 + ": " + result[k])
     }
+    console.log(`-----`)
+    console.log(`Correct Answer: ${correctAnswer}`)
 }
 }
 
