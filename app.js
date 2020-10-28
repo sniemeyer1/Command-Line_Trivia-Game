@@ -25,7 +25,7 @@ function startQuiz(prompt, isValid){
     Type the number that corresponds to the answer you 
     would like to choose and press 'return' \n
     Are you ready? \n`)
-    let userInput = input.question("Type 'Y' then 'return' to begin: ");
+    let userInput = input.question("Type 'Y' then press return to begin: ");
     if(userInput != 'Y'){
       return startQuiz() 
     }else
@@ -34,27 +34,32 @@ function startQuiz(prompt, isValid){
 
     function displayQuestion(){
         for (let i = 0; i < questions.length; i++){
-            let question = questions[i].question;
+            let questionPROMPT = questions[i].question;
+
             let correctAnswer = questions[i].correct;
+            
             let choicesArray = questions[i].incorrect;
             choicesArray.push(correctAnswer)
-            console.log(`--- \n QUESTION: ${question} \n`)
+            console.log(`--- \n QUESTION ${i+1}: ${questionPROMPT} \n`)
             
-            var result = choicesArray.shuffle();
+            var choices = choicesArray.shuffle();
 
-            for (let k = 0; k < result.length; k++){
-                console.log(`${k+1}: ${result[k]} \n `)
+            for (let k = 0; k < choices.length; k++){
+                console.log(`${k+1}: ${choices[k]} \n `)
             }
             
             let userInput = input.question(`Your Answer: `);
-            let userAnswer = result[userInput-1]
+            let userAnswer = choices[userInput-1]
+            
+            let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
+            
             if (userAnswer == correctAnswer){
                 console.log("CORRECT!")
             }else {
-                console.log(`Sorry, the correct answer was: ${correctAnswer}`)
+                console.log(`Sorry, the correct answer was ${correctAnswerNumber} : ${correctAnswer}`)
             }
-            //console.log(`You selected ${userInput}: ${userAnswer}`)
-            //console.log(`Correct Answer: ${correctAnswer}`)
+            input.question(`Press return for next question`);
+
         }   
     }
 }
