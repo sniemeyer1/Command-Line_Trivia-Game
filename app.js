@@ -3,9 +3,9 @@
 const fs = require('fs');
 const input = require('readline-sync');
 
-
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let questions = JSON.parse(rawdata);
+
 
 //shuffle algorithm
 Array.prototype.shuffle = function(){
@@ -19,7 +19,7 @@ Array.prototype.shuffle = function(){
     return this
 }
 
-function startQuiz(prompt, isValid){
+function startQuiz(){
     console.log(`\n Welcome to Trivia! \n 
     You will be prompted with a trivia question. 
     Type the number that corresponds to the answer you 
@@ -33,34 +33,36 @@ function startQuiz(prompt, isValid){
         
 
     function displayQuestion(){
-        for (let i = 0; i < questions.length; i++){
-            let questionPROMPT = questions[i].question;
+        questions.shuffle();
 
-            let correctAnswer = questions[i].correct;
-            
-            let choicesArray = questions[i].incorrect;
-            choicesArray.push(correctAnswer)
-            console.log(`--- \n QUESTION ${i+1}: ${questionPROMPT} \n`)
-            
-            var choices = choicesArray.shuffle();
+            for (let i = 0; i < 10; i++){
+                let questionPROMPT = questions[i].question;
 
-            for (let k = 0; k < choices.length; k++){
-                console.log(`${k+1}: ${choices[k]} \n `)
-            }
+                let correctAnswer = questions[i].correct;
             
-            let userInput = input.question(`Your Answer: `);
-            let userAnswer = choices[userInput-1]
-            
-            let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
-            
-            if (userAnswer == correctAnswer){
-                console.log("CORRECT!")
-            }else {
-                console.log(`Sorry, the correct answer was ${correctAnswerNumber} : ${correctAnswer}`)
-            }
-            input.question(`Press return for next question`);
+                let choicesArray = questions[i].incorrect;
+                choicesArray.push(correctAnswer)
+                console.log(`--- \n QUESTION ${i+1}: ${questionPROMPT} \n`)
+                
+                var choices = choicesArray.shuffle();
 
-        }   
+                for (let k = 0; k < choices.length; k++){
+                    console.log(`${k+1}: ${choices[k]} \n `)
+                }
+                
+                let userInput = input.question(`Your Answer: `);
+                let userAnswer = choices[userInput-1]
+                
+                let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
+                
+                if (userAnswer == correctAnswer){
+                    console.log("CORRECT!")
+                }else {
+                    console.log(`Sorry, the correct answer was ${correctAnswerNumber} : ${correctAnswer}`)
+                }
+                input.question(`Press return for next question`);
+            }   
+        
     }
 }
 
