@@ -4,26 +4,28 @@ const fs = require('fs');
 
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let questions = JSON.parse(rawdata);
-//console.log(questions);
 
+function displayQuestion(){
 for (let i = 0; i < questions.length; i++){
     let question = questions[i].question;
     let correctAnswer = questions[i].correct;
-    let choices = questions[i].incorrect;
-    choices.push(correctAnswer)
-    console.log(`${question} \n`)
-    //console.log(choices)
-    for (let i = 0; i < choices.length; i++) {
-        console.log(`${choices[i]} \n`);
-     }
-    // for (var j in choices){
-    //     console.log(choices[j])
-    // }
-    // for (let j = 0; j < choices.length; i++){
-    //     console.log(`A: ${choices[j]}`)
-    // }
-    //console.log(choices)
-    // console.log(`Q:${question} \n
-    // Choices: ${choices} \n
-    // CA: ${correctAnswer}`)
+    let choicesArray = questions[i].incorrect;
+    choicesArray.push(correctAnswer)
+    console.log(`--- \n QUESTION: ${question} \n`)
+    
+    function shuffle(anArray){
+        var j = anArray.length, temp, x;
+        while (j > 0) {
+            x = Math.floor(Math.random() * j);
+            j--;
+            temp = anArray[j]
+            anArray[j] = anArray[x];
+            anArray[x] = temp;
+        }
+        return anArray
+    }
+    console.log(shuffle(choicesArray))
 }
+}
+
+displayQuestion();
