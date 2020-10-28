@@ -1,11 +1,24 @@
 // Command Line Trivia Game
 
 const fs = require('fs');
-//const input = require('readline-sync');
+const input = require('readline-sync');
 
 
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let questions = JSON.parse(rawdata);
+
+function startQuiz(prompt, isValid){
+    console.log(`Welcome to Trivia! \n
+You will be prompted with a trivia question. Type the number 
+that corresponds to the answer you would like to choose
+and press 'return' \n
+Are you ready? \n`)
+    let userInput = input.question("Type 'Y' then 'return' to begin: ");
+    if(userInput != 'Y'){
+      return startQuiz() 
+    }else
+        displayQuestion();
+        
 
 function displayQuestion(){
 for (let i = 0; i < questions.length; i++){
@@ -17,9 +30,8 @@ for (let i = 0; i < questions.length; i++){
     
     Array.prototype.shuffle = function(){
         var j = this.length, temp, x;
-        while (j > 0) {
+        while (--j > 0) {
             x = Math.floor(Math.random() * j);
-            j--;
             temp = this[j]
             this[j] = this[x];
             this[x] = temp;
@@ -35,4 +47,6 @@ for (let i = 0; i < questions.length; i++){
 }
 }
 
-displayQuestion();
+}
+
+startQuiz();
