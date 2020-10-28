@@ -1,6 +1,8 @@
 // Command Line Trivia Game
 
 const fs = require('fs');
+//const input = require('readline-sync');
+
 
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let questions = JSON.parse(rawdata);
@@ -13,18 +15,21 @@ for (let i = 0; i < questions.length; i++){
     choicesArray.push(correctAnswer)
     console.log(`--- \n QUESTION: ${question} \n`)
     
-    function shuffle(anArray){
-        var j = anArray.length, temp, x;
+    Array.prototype.shuffle = function(){
+        var j = this.length, temp, x;
         while (j > 0) {
             x = Math.floor(Math.random() * j);
             j--;
-            temp = anArray[j]
-            anArray[j] = anArray[x];
-            anArray[x] = temp;
+            temp = this[j]
+            this[j] = this[x];
+            this[x] = temp;
         }
-        return anArray
+        return this
     }
-    console.log(shuffle(choicesArray))
+    var result = choicesArray.shuffle();
+    for (let k = 0; k < result.length; k++){
+        console.log(k+1 + ": " + result[k])
+    }
 }
 }
 
