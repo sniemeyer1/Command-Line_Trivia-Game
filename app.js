@@ -26,6 +26,7 @@ function startQuiz(){
     would like to choose and press 'return' \n
     Are you ready? \n`)
     let userInput = input.question("Type 'Y' then press return to begin: ");
+    
     if(userInput != 'Y'){
       return startQuiz() 
     }else
@@ -34,35 +35,44 @@ function startQuiz(){
 
     function displayQuestion(){
         questions.shuffle();
-
+        let userScore = 0;
             for (let i = 0; i < 10; i++){
-                let questionPROMPT = questions[i].question;
+                let questionPrompt = questions[i].question;
 
                 let correctAnswer = questions[i].correct;
             
                 let choicesArray = questions[i].incorrect;
+
                 choicesArray.push(correctAnswer)
-                console.log(`--- \n QUESTION ${i+1}: ${questionPROMPT} \n`)
+
+                console.log(`--- \n QUESTION ${i+1}: ${questionPrompt} \n`)
                 
                 var choices = choicesArray.shuffle();
+                let choiceNumberArray = [];
 
                 for (let k = 0; k < choices.length; k++){
-                    console.log(`${k+1}: ${choices[k]} \n `)
+                    let choiceNumber = k + 1;
+                    choiceNumberArray.push(choiceNumber)
+                    console.log(`${choiceNumber}: ${choices[k]} \n `)
                 }
-                
                 let userInput = input.question(`Your Answer: `);
                 let userAnswer = choices[userInput-1]
-                
                 let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
                 
+                console.log(choiceNumberArray)
+                console.log(userInput)
+                console.log(userAnswer)
+                console.log(correctAnswer)
+                
+
                 if (userAnswer == correctAnswer){
-                    console.log("CORRECT!")
+                    userScore++
+                    console.log(`CORRECT! User Score: ${userScore}`)
                 }else {
-                    console.log(`Sorry, the correct answer was ${correctAnswerNumber} : ${correctAnswer}`)
+                    console.log(`Sorry, the correct answer was ${correctAnswerNumber} : ${correctAnswer} User Score: ${userScore} `)
                 }
                 input.question(`Press return for next question`);
-            }   
-        
+            }         
     }
 }
 
