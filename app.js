@@ -22,8 +22,8 @@ Array.prototype.shuffle = function(){
 function startQuiz(){
     console.log(`\n Welcome to Trivia! \n 
     You will be prompted with a trivia question. 
-    Type the number that corresponds to the answer you 
-    would like to choose and press 'return' \n
+    Type in the number that corresponds to the answer you 
+    would like to choose and then press 'return' \n
     Are you ready? \n`)
     let userInput = input.question("Type 'Y' then press return to begin: ");
     
@@ -31,20 +31,19 @@ function startQuiz(){
       return startQuiz() 
     }else
         displayQuestion();
-        
 
     function displayQuestion(){
         questions.shuffle();
         let userScore = 0;
-            for (let i = 0; i < 10; i++){
+        let numberOfQuestions = 10;
+        let i = 0;
+            while (i < numberOfQuestions){
                 let questionPrompt = questions[i].question;
-
-                let correctAnswer = questions[i].correct;
-            
                 let choicesArray = questions[i].incorrect;
+                let correctAnswer = questions[i].correct;
 
                 choicesArray.push(correctAnswer)
-
+                
                 console.log(`--- \n QUESTION ${i+1}: ${questionPrompt} \n`)
                 
                 var choices = choicesArray.shuffle();
@@ -55,24 +54,32 @@ function startQuiz(){
                     choiceNumberArray.push(choiceNumber)
                     console.log(`${choiceNumber}: ${choices[k]} \n `)
                 }
+                
                 let userInput = input.question(`Your Answer: `);
+                
                 let userAnswer = choices[userInput-1]
                 let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
-                
-                console.log(choiceNumberArray)
-                console.log(userInput)
-                console.log(userAnswer)
-                console.log(correctAnswer)
-                
 
-                if (userAnswer == correctAnswer){
-                    userScore++
-                    console.log(`CORRECT! User Score: ${userScore}`)
-                }else {
-                    console.log(`Sorry, the correct answer was ${correctAnswerNumber} : ${correctAnswer} User Score: ${userScore} `)
+                    if (userAnswer == correctAnswer){
+                        userScore++
+                        console.log(`CORRECT!`)
+                    }else {
+                        console.log(`Sorry, the correct answer was: ${correctAnswerNumber}: ${correctAnswer}`)
+                    }
+                    console.log(`User Score: ${userScore} `)
+                
+                
+                if (i < numberOfQuestions - 1){
+                    input.question(`Press return for next question`);
+                } else {
+                    console.log(`GAME OVER`)
                 }
-                input.question(`Press return for next question`);
-            }         
+                
+                i++;
+            }
+            console.log(`Final Score: ${userScore}/${numberOfQuestions}`)
+
+
     }
 }
 
