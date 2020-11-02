@@ -66,18 +66,16 @@ function startQuiz(){
                     }else {
                         console.log(`Sorry, the correct answer was: ${correctAnswerNumber}: ${correctAnswer}`)
                     }
-                    console.log(`User Score: ${userScore} `)
+                    
                 
                 
                 if (i < numberOfQuestions - 1){
+                    console.log(`User Score: ${userScore} `)
                     input.question(`Press return for next question`);
-                } else {
-                    console.log(`GAME OVER`)
-                }
-                
+                } 
                 i++;
             }
-            console.log(`Final Score: ${userScore}/${numberOfQuestions}`)
+            console.log(`Game Over. Final Score: ${userScore}/${numberOfQuestions}`)
 
 
     }
