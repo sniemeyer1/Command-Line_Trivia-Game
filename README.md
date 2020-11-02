@@ -3,7 +3,7 @@
 A simple 10-question command-line trivia game.
 
 I created this application as a coding challenge for a Software Engineering apprenticeship at [Tandem](https://madeintandem.com/contact/chicago/).
-You can see the challenge critera [here](/Command-Line-Game/Tandem_SEApprentice_Challenge_2020.pdfTandem_SEApprentice_Challenge_2020.pdf)
+You can see the challenge critera [here](/Tandem_SEApprentice_Challenge_2020.pdf)
 
 ## Installation and Setup
 
