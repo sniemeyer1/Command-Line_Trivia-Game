@@ -17,26 +17,36 @@ node app.js
 
 ## Game Play
 
-At any point press control + C to end program
-input node app.js to start the game. 
+To exit program, press:
 
 ```bash
-Welcome to Trivia! 
- 
-You will be prompted with a trivia question. 
-Type in the number that corresponds to the answer you 
-would like to choose and then press 'return' 
+^C
+```
 
-Are you ready? 
+To start a game, input:
+
+```bash
+node app.js
+```
+
+```bash
+Welcome to Trivia!
+
+You will be prompted with a trivia question.
+Type in the number that corresponds to the answer you
+would like to choose and then press 'return'
+
+Are you ready?
 
 Type 'Y' then press return to begin: Y
 ```
-The first question displays. Once the user inputs their answer, the console will print the answer, if you were correct or not, your score, and instructions to press return for the next question. For example: 
+
+The first question displays. Once the user inputs their answer, the console will print the answer, if the answer was correct or not, your score, and instructions to press return for the next question. For example:
 
 ```bash
 Your Answer: 3
 CORRECT!
-User Score: 1 
+User Score: 1
 Press return for next question
 ```
 
@@ -44,15 +54,17 @@ After answering the 10th question, the game ends, and the user is updated with t
 
 ## Technologies Used
 
-JavaScript
-Node.JS
-JSON
+* JavaScript
+* Node.JS
+* JSON
 
-## Packages:
-readline-sync
-fs
+## Packages
 
-## Future Improvements:
-Add unit tests with Jasmine.
-Display different feedback at the end of the same, depending on their score.
-Make a trivia game with a UI, using React.
+* readline-sync
+* fs
+
+## Future Improvements
+
+* Add unit tests with Jasmine.
+* Display different feedback at the end of the same, depending on their score.
+* Make a trivia game with a UI, using React
