@@ -47,8 +47,7 @@ function startQuiz(){
         return true
     }
   
-    validateAnswer("Type Y then 'return' to start the game. ", isStartingGame)
-
+    validateAnswer("Type 'Y' then 'return' to start the game. ", isStartingGame)
 
     //calls shuffle algorithm to randomize questions
     function displayQuestion(){
@@ -102,7 +101,7 @@ function startQuiz(){
             i++;
         }
         console.log(`Final Score ${userScore}/${numberOfQuestions}`)
-        validateAnswer("Type Y then 'return' to start the game. ", isStartingGame)
+        validateAnswer("Type 'Y' then 'return' to start over: ", isStartingGame)
     }  
 }
 startQuiz()
