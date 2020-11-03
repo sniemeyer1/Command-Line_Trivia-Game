@@ -46,7 +46,7 @@ Are you ready?
 Type 'Y' then press return to begin: Y
 ```
 
-The first question displays. Once the user inputs their answer, the console will print the answer, if the answer was correct or not, your score, and instructions to press return for the next question. For example:
+The first question displays. Once the user inputs their answer, the console will print the user's answer, whether the answer was correct or not, their updated score, and instructions to press return for the next question. For example:
 
 ```bash
 Your Answer: 3
@@ -63,7 +63,7 @@ After answering the 10th question, the game ends, and the user is updated with t
 * Node.JS
 * JSON
 
-## Packages
+## Dependencies
 
 * readline-sync
 * fs

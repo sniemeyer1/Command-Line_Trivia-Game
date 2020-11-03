@@ -4,8 +4,8 @@ const fs = require('fs');
 const input = require('readline-sync');
 
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
-let questions = JSON.parse(rawdata);
-
+let quizData = JSON.parse(rawdata);
+let numberOfQuestions = 3;
 
 //shuffle algorithm
 Array.prototype.shuffle = function(){
@@ -19,28 +19,46 @@ Array.prototype.shuffle = function(){
     return this
 }
 
-function startQuiz(){
+    //welcome message
     console.log(`\n Welcome to Trivia! \n 
     You will be prompted with a trivia question. 
     Type in the number that corresponds to the answer you 
-    would like to choose and then press 'return' \n
+    would like to choose and then type 'Y' and 'return' \n
     Are you ready? \n`)
-    let userInput = input.question("Type 'Y' then press return to begin: ");
-    
-    if(userInput != 'Y'){
-      return startQuiz() 
-    }else
-        displayQuestion();
 
+    //reusable input validator function
+    function validateAnswer(answerPrompt, isValid){
+        let userInput = input.question(answerPrompt);
+        
+        while(!isValid(userInput)) {
+            console.log("Invalid input. Try again.");
+            userInput = input.question(answerPrompt);
+        }
+        return userInput;
+    }
+
+    //start game confirmation function
+    let isStartingGame = function(start){
+        if(start != 'Y'){
+            return false
+        }
+        return true
+    }
+  
+    console.log(validateAnswer("Type Y then 'return' to start the game. ", isStartingGame))
+
+    displayQuestion()
+
+    //calls shuffle algorithm to randomize questions
     function displayQuestion(){
-        questions.shuffle();
+        quizData.shuffle();
         let userScore = 0;
-        let numberOfQuestions = 10;
+        
         let i = 0;
-            while (i < numberOfQuestions){
-                let questionPrompt = questions[i].question;
-                let choicesArray = questions[i].incorrect;
-                let correctAnswer = questions[i].correct;
+        while (i < numberOfQuestions){
+                let questionPrompt = quizData[i].question;
+                let choicesArray = quizData[i].incorrect;
+                let correctAnswer = quizData[i].correct;
 
                 choicesArray.push(correctAnswer)
                 
@@ -53,30 +71,35 @@ function startQuiz(){
                     let choiceNumber = k + 1;
                     choiceNumberArray.push(choiceNumber)
                     console.log(`${choiceNumber}: ${choices[k]} \n `)
-                }
+                };
+            
+                let isValidMultiChoiceAnswer = function(multiChoiceAnswer){
+                    if(!choiceNumberArray.includes(Number(multiChoiceAnswer))){
+                        return false
+                    }
+                    return true
+                };
                 
-                let userInput = input.question(`Your Answer: `);
-                
-                let userAnswer = choices[userInput-1]
-                let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
+                gradeAnswer(validateAnswer('Your Answer: ', isValidMultiChoiceAnswer));
 
-                    if (userAnswer == correctAnswer){
+                function gradeAnswer(answer){
+                    let userAnswer = choices[answer-1]
+                    let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
+
+                    if (userAnswer === correctAnswer){
                         userScore++
                         console.log(`CORRECT!`)
                     }else {
                         console.log(`Sorry, the correct answer was: ${correctAnswerNumber}: ${correctAnswer}`)
                     }
-                    
-                if (i < numberOfQuestions - 1){
+
+                    if(i < numberOfQuestions-1){
                     console.log(`User Score: ${userScore} `)
                     input.question(`Press return for next question`);
-                } 
-                i++;
-            }
-            console.log(`Game Over. Final Score: ${userScore}/${numberOfQuestions}`)
-
-
-    }
-}
-
-startQuiz();
+                    }
+                }
+            i++;
+        }
+        console.log(`Final Score ${userScore}/${numberOfQuestions}`)
+    }  
+   
