@@ -6,9 +6,9 @@ I created this application as a coding challenge for a Software Engineering appr
 
 Here were the guidelines:
 
-[Goal](/assets/challenge-goal.jpg)
+![Goal](/assets/challenge-goal.jpg)
 
-[Assumptions and Criteria](/assets/challenge-criteria.jpg)
+![Assumptions and Criteria](/assets/challenge-criteria.jpg)
 
 ## Installation and Setup
 
