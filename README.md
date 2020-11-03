@@ -40,6 +40,7 @@ Welcome to Trivia!
 You will be prompted with a trivia question.
 Type in the number that corresponds to 
 the answer you would like to choose.
+Each round asks 10 questions.
 
 Are you ready?
 
