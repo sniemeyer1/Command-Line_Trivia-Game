@@ -19,11 +19,12 @@ Array.prototype.shuffle = function(){
     return this
 }
 
+function startQuiz(){
     //welcome message
     console.log(`\n Welcome to Trivia! \n 
     You will be prompted with a trivia question. 
-    Type in the number that corresponds to the answer you 
-    would like to choose and then type 'Y' and 'return' \n
+    Type in the number that corresponds to the answer 
+    you would like to choose.\n
     Are you ready? \n`)
 
     //reusable input validator function
@@ -42,12 +43,12 @@ Array.prototype.shuffle = function(){
         if(start != 'Y'){
             return false
         }
+        displayQuestion()
         return true
     }
   
-    console.log(validateAnswer("Type Y then 'return' to start the game. ", isStartingGame))
+    validateAnswer("Type Y then 'return' to start the game. ", isStartingGame)
 
-    displayQuestion()
 
     //calls shuffle algorithm to randomize questions
     function displayQuestion(){
@@ -101,5 +102,7 @@ Array.prototype.shuffle = function(){
             i++;
         }
         console.log(`Final Score ${userScore}/${numberOfQuestions}`)
+        validateAnswer("Type Y then 'return' to start the game. ", isStartingGame)
     }  
-   
+}
+startQuiz()
