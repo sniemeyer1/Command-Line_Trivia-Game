@@ -5,7 +5,7 @@ const input = require('readline-sync');
 
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let quizData = JSON.parse(rawdata);
-let numberOfQuestions = 3;
+let numberOfQuestions = 10;
 
 //shuffle algorithm
 Array.prototype.shuffle = function(){
