@@ -67,8 +67,6 @@ function startQuiz(){
                         console.log(`Sorry, the correct answer was: ${correctAnswerNumber}: ${correctAnswer}`)
                     }
                     
-                
-                
                 if (i < numberOfQuestions - 1){
                     console.log(`User Score: ${userScore} `)
                     input.question(`Press return for next question`);

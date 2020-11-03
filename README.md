@@ -4,6 +4,12 @@ A simple 10-question command-line trivia game.
 
 I created this application as a coding challenge for a Software Engineering apprenticeship at [Tandem](https://madeintandem.com/contact/chicago/).
 
+Here were the guidelines:
+
+[Goal](/assets/challenge-goal.jpg)
+
+[Assumptions and Criteria](/assets/challenge-criteria.jpg)
+
 ## Installation and Setup
 
 ```bash
