@@ -70,6 +70,7 @@ After answering the 10th question, the game ends, and the user is updated with t
 
 ## Future Improvements
 
+* Add a validation function
 * Add unit tests with Jasmine.
 * Display different feedback at the end of the same, depending on their score.
 * Make a trivia game with a UI, using React
