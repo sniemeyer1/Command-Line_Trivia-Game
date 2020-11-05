@@ -7,7 +7,7 @@ let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let quizData = JSON.parse(rawdata);
 let numberOfQuestions = 10;
 
-//shuffle algorithm
+//reusable shuffle algorithm
 Array.prototype.shuffle = function(){
     var j = this.length, temp, x;
     while (--j > 0) {
@@ -19,35 +19,39 @@ Array.prototype.shuffle = function(){
     return this
 }
 
-function startQuiz(){
-    //welcome message
-    console.log(`\n Welcome to Trivia! \n 
-    You will be prompted with a trivia question. 
-    Type in the number that corresponds to the answer 
-    you would like to choose.\n
-    Are you ready? \n`)
-
-    //reusable input validator function
-    function validateAnswer(answerPrompt, isValid){
-        let userInput = input.question(answerPrompt);
-        
-        while(!isValid(userInput)) {
-            console.log("Invalid input. Try again.");
-            userInput = input.question(answerPrompt);
-        }
-        return userInput;
+//reusable input validator function
+function validateAnswer(answerPrompt, isValid){
+    let userInput = input.question(answerPrompt);
+    
+    while(!isValid(userInput)) {
+        console.log("Invalid input. Try again.");
+        userInput = input.question(answerPrompt);
     }
+    return userInput;
+}
+
+//pre-game rule explanation
+const triviaRules = `\n Welcome to Trivia! \n 
+You will be prompted with a trivia question. 
+Type in the number that corresponds to the answer 
+you would like to choose.\n
+Are you ready? \n`
+
+const startGameInput = `Y`;
+
+function startQuiz(){
+    console.log(triviaRules)
 
     //start game confirmation function
     let isStartingGame = function(start){
-        if(start != 'Y'){
+        if(start != startGameInput){
             return false
         }
         displayQuestion()
         return true
     }
   
-    validateAnswer("Type 'Y' then 'return' to start the game. ", isStartingGame)
+    validateAnswer(`Type '${startGameInput}' then 'return' to start the game. `, isStartingGame)
 
     //calls shuffle algorithm to randomize questions
     function displayQuestion(){
@@ -95,13 +99,13 @@ function startQuiz(){
 
                     if(i < numberOfQuestions-1){
                     console.log(`User Score: ${userScore} `)
-                    input.question(`Press return for next question`);
+                    input.question(`Press 'return' for next question`);
                     }
                 }
             i++;
         }
-        console.log(`Final Score ${userScore}/${numberOfQuestions}`)
-        validateAnswer("Type 'Y' then 'return' to start over: ", isStartingGame)
+        console.log(`Final Score: ${userScore}/${numberOfQuestions}`)
+        validateAnswer(`Type '${startGameInput}' then 'return' to start over: `, isStartingGame)
     }  
 }
 startQuiz()
