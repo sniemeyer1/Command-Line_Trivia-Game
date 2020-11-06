@@ -107,4 +107,4 @@ function startQuiz(){
     validateAnswer(`Type '${startGameInput}' then 'return' to start the game. `, isReady)
 }
 
-startQuiz()
+startQuiz();
