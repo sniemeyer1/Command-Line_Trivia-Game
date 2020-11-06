@@ -1,0 +1,28 @@
+{
+  "name": "command-line-game",
+  "version": "1.0.0",
+  "description": "A simple 10-question command-line trivia game.",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "jasmine": "^3.6.3",
+    "readline-sync": "^1.4.10",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sniemeyer1/Command-Line_Trivia-Game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sniemeyer1/Command-Line_Trivia-Game/issues"
+  },
+  "homepage": "https://github.com/sniemeyer1/Command-Line_Trivia-Game#readme"
+}

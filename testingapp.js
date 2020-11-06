@@ -1,5 +1,3 @@
-// Command Line Trivia Game
-
 const fs = require('fs');
 const input = require('readline-sync');
 
@@ -7,7 +5,7 @@ let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let quizData = JSON.parse(rawdata);
 
 
-const numberOfQuestions = 10;
+const numberOfQuestions = 3;
 const startGameInput = `Y`;
 const triviaRules = `\n Welcome to Trivia! \n 
 You will be prompted with a trivia question. 
@@ -38,8 +36,9 @@ function validateAnswer(answerPrompt, isValid){
     return userInput;
 }
 
-function displayQuestion(jsonData, numOfQ){
-    let userScore = 0;
+
+function getquestion(jsonData, numOfQ){let userScore = 0;
+    
     jsonData.shuffle();
 
     let i = 0;
@@ -87,24 +86,10 @@ function displayQuestion(jsonData, numOfQ){
                 }
             }
         i++;
-        
+        return i
     }
     console.log(`GAME OVER. Final Score: ${userScore}/${numOfQ}\n`)
     validateAnswer(`Type '${startGameInput}' then 'return' to start over: `, isReady)
-} 
-
-//start game confirmation function
-let isReady = function(start){
-    if(start != startGameInput){
-        return false
-    }
-    displayQuestion(quizData, numberOfQuestions)
-    return true
 }
 
-function startQuiz(){
-    console.log(triviaRules)
-    validateAnswer(`Type '${startGameInput}' then 'return' to start the game. `, isReady)
-}
-
-startQuiz()
+module.exports = getquestion
