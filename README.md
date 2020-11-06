@@ -16,7 +16,7 @@ Here were the guidelines:
 git clone https://github.com/sniemeyer1/Command-Line_Trivia-Game.git
 cd Command-Line-Trivia_Game
 npm init
-npm i readline-sync fs
+npm i readline-sync
 node app.js
 ```
 

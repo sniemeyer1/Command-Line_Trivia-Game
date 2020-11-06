@@ -5,7 +5,15 @@ const input = require('readline-sync');
 
 let rawdata = fs.readFileSync('Apprentice_TandemFor400_Data.json');
 let quizData = JSON.parse(rawdata);
-let numberOfQuestions = 10;
+
+
+const numberOfQuestions = 10;
+const startGameInput = `Y`;
+const triviaRules = `\n Welcome to Trivia! \n 
+You will be prompted with a trivia question. 
+Type in the number that corresponds to the answer 
+you would like to choose.\n
+Are you ready? \n`
 
 //reusable shuffle algorithm
 Array.prototype.shuffle = function(){
@@ -30,82 +38,74 @@ function validateAnswer(answerPrompt, isValid){
     return userInput;
 }
 
-//pre-game rule explanation
-const triviaRules = `\n Welcome to Trivia! \n 
-You will be prompted with a trivia question. 
-Type in the number that corresponds to the answer 
-you would like to choose.\n
-Are you ready? \n`
+//calls shuffle algorithm to randomize questions
+quizData.shuffle();
 
-const startGameInput = `Y`;
+function displayQuestion(){
+    let userScore = 0;
+    
+    let i = 0;
+    while (i < numberOfQuestions){
+            let questionPrompt = quizData[i].question;
+            let choicesArray = quizData[i].incorrect;
+            let correctAnswer = quizData[i].correct;
+
+            choicesArray.push(correctAnswer)
+            
+            console.log(`--- \n QUESTION ${i+1}: ${questionPrompt} \n`)
+            
+            var choices = choicesArray.shuffle();
+            let choiceNumberArray = [];
+
+            for (let k = 0; k < choices.length; k++){
+                let choiceNumber = k + 1;
+                choiceNumberArray.push(choiceNumber)
+                console.log(`${choiceNumber}: ${choices[k]} \n `)
+            };
+        
+            let isValidMultiChoiceAnswer = function(multiChoiceAnswer){
+                if(!choiceNumberArray.includes(Number(multiChoiceAnswer))){
+                    return false
+                }
+                return true
+            };
+            
+            gradeAnswer(validateAnswer('Your Answer: ', isValidMultiChoiceAnswer));
+
+            function gradeAnswer(answer){
+                let userAnswer = choices[answer-1]
+                let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
+
+                if (userAnswer === correctAnswer){
+                    userScore++
+                    console.log(`CORRECT!`)
+                }else {
+                    console.log(`Sorry, the correct answer was: ${correctAnswerNumber}: ${correctAnswer}\n`)
+                }
+
+                if(i < numberOfQuestions-1){
+                console.log(`User Score: ${userScore} `)
+                input.question(`Press 'return' for next question`);
+                }
+            }
+        i++;
+    }
+    console.log(`GAME OVER. Final Score: ${userScore}/${numberOfQuestions}\n`)
+    validateAnswer(`Type '${startGameInput}' then 'return' to start over: `, isReady)
+} 
+
+//start game confirmation function
+let isReady = function(start){
+    if(start != startGameInput){
+        return false
+    }
+    displayQuestion()
+    return true
+}
 
 function startQuiz(){
     console.log(triviaRules)
-
-    //start game confirmation function
-    let isStartingGame = function(start){
-        if(start != startGameInput){
-            return false
-        }
-        displayQuestion()
-        return true
-    }
-  
-    validateAnswer(`Type '${startGameInput}' then 'return' to start the game. `, isStartingGame)
-
-    //calls shuffle algorithm to randomize questions
-    function displayQuestion(){
-        quizData.shuffle();
-        let userScore = 0;
-        
-        let i = 0;
-        while (i < numberOfQuestions){
-                let questionPrompt = quizData[i].question;
-                let choicesArray = quizData[i].incorrect;
-                let correctAnswer = quizData[i].correct;
-
-                choicesArray.push(correctAnswer)
-                
-                console.log(`--- \n QUESTION ${i+1}: ${questionPrompt} \n`)
-                
-                var choices = choicesArray.shuffle();
-                let choiceNumberArray = [];
-
-                for (let k = 0; k < choices.length; k++){
-                    let choiceNumber = k + 1;
-                    choiceNumberArray.push(choiceNumber)
-                    console.log(`${choiceNumber}: ${choices[k]} \n `)
-                };
-            
-                let isValidMultiChoiceAnswer = function(multiChoiceAnswer){
-                    if(!choiceNumberArray.includes(Number(multiChoiceAnswer))){
-                        return false
-                    }
-                    return true
-                };
-                
-                gradeAnswer(validateAnswer('Your Answer: ', isValidMultiChoiceAnswer));
-
-                function gradeAnswer(answer){
-                    let userAnswer = choices[answer-1]
-                    let correctAnswerNumber = choices.indexOf(correctAnswer) + 1;
-
-                    if (userAnswer === correctAnswer){
-                        userScore++
-                        console.log(`CORRECT!`)
-                    }else {
-                        console.log(`Sorry, the correct answer was: ${correctAnswerNumber}: ${correctAnswer}`)
-                    }
-
-                    if(i < numberOfQuestions-1){
-                    console.log(`User Score: ${userScore} `)
-                    input.question(`Press 'return' for next question`);
-                    }
-                }
-            i++;
-        }
-        console.log(`Final Score: ${userScore}/${numberOfQuestions}`)
-        validateAnswer(`Type '${startGameInput}' then 'return' to start over: `, isStartingGame)
-    }  
+    validateAnswer(`Type '${startGameInput}' then 'return' to start the game. `, isReady)
 }
+
 startQuiz()
