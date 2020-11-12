@@ -7,11 +7,12 @@
     "lib": "lib"
   },
   "dependencies": {
-    "jasmine": "^3.6.3",
     "readline-sync": "^1.4.10",
     "xmlhttprequest": "^1.8.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jasmine": "^3.6.3"
+  },
   "scripts": {
     "test": "jasmine"
   },
